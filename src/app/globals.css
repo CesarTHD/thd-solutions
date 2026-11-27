@@ -41,6 +41,15 @@
   --animate-flow: flow 2.4s linear infinite;
   --animate-pulse-soft: pulse-soft 3s ease-in-out infinite;
 
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+  --animate-enter: enter 0.8s var(--ease-out-soft) both;
+
+  @keyframes enter {
+    from {
+      opacity: 0;
+      transform: translate3d(0, 14px, 0);
+    }
+  }
   @keyframes flow {
     to {
       stroke-dashoffset: -24;
@@ -143,6 +152,12 @@
     @apply block w-full rounded-lg border border-slate-300 bg-white px-3.5 py-2.5 text-[0.9375rem] text-navy-900 shadow-[0_1px_1px_rgba(15,29,54,0.04)] transition-colors placeholder:text-slate-400 hover:border-slate-400 focus:border-electric-600 focus:ring-3 focus:ring-electric-100 focus:outline-none aria-invalid:border-red-500 aria-invalid:focus:ring-red-100;
   }
 
+  /* Entrada do hero ao carregar (só opacidade/posição; o título fica fora para não atrasar o LCP). */
+  .enter {
+    animation: var(--animate-enter);
+    animation-delay: var(--enter-delay, 0ms);
+  }
+
   .grid-bg {
     background-image:
       linear-gradient(to right, rgba(15, 29, 54, 0.045) 1px, transparent 1px),
@@ -151,3 +166,32 @@
   }
 }
 
+/*
+ * Revelação ao rolar (fora de @layer para prevalecer sobre os utilitários
+ * transition-* dos cards). O estado oculto só vale com <html data-motion="on">,
+ * definido por script inline (lib/motion.ts) quando há JS e o usuário não pediu
+ * movimento reduzido; RevealObserver adiciona `data-revealed`.
+ *   data-reveal           → o bloco inteiro sobe e aparece
+ *   data-reveal="stagger" → cada filho direto aparece em cascata
+ * Hover (sombra, cor, translate) segue suave e sem atraso.
+ */
+[data-motion="on"] [data-reveal]:not([data-reveal="stagger"]),
+[data-motion="on"] [data-reveal="stagger"] > * {
+  opacity: 0;
+  transform: translate3d(0, 24px, 0);
+  transition-property: opacity, transform, box-shadow, translate, border-color, background-color, color;
+  transition-duration: 0.7s, 0.8s, 0.2s, 0.2s, 0.15s, 0.15s, 0.15s;
+  transition-timing-function: var(--ease-out-soft);
+  transition-delay: var(--reveal-delay, 0ms), var(--reveal-delay, 0ms), 0ms, 0ms, 0ms, 0ms, 0ms;
+}
+[data-motion="on"] [data-reveal][data-revealed]:not([data-reveal="stagger"]),
+[data-motion="on"] [data-reveal="stagger"][data-revealed] > * {
+  opacity: 1;
+  transform: none;
+}
+[data-reveal="stagger"] > :nth-child(2) { --reveal-delay: 70ms; }
+[data-reveal="stagger"] > :nth-child(3) { --reveal-delay: 140ms; }
+[data-reveal="stagger"] > :nth-child(4) { --reveal-delay: 210ms; }
+[data-reveal="stagger"] > :nth-child(5) { --reveal-delay: 280ms; }
+[data-reveal="stagger"] > :nth-child(6) { --reveal-delay: 350ms; }
+[data-reveal="stagger"] > :nth-child(n + 7) { --reveal-delay: 420ms; }

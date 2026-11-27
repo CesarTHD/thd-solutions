@@ -4,6 +4,8 @@ import { siteConfig } from "@/config/site";
 import { AttributionCapture } from "@/components/analytics/AttributionCapture";
 import { ConsentBanner } from "@/components/analytics/ConsentBanner";
 import { TrackingScripts } from "@/components/analytics/TrackingScripts";
+import { RevealObserver } from "@/components/motion/RevealObserver";
+import { revealBootScript } from "@/lib/motion";
 import "./globals.css";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"], display: "swap" });
@@ -34,9 +36,12 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="pt-BR" className={`${geistSans.variable} ${geistMono.variable}`}>
+    // suppressHydrationWarning: o script abaixo marca <html data-motion> antes da hidratação.
+    <html lang="pt-BR" className={`${geistSans.variable} ${geistMono.variable}`} suppressHydrationWarning>
       <body className="flex min-h-dvh flex-col">
+        <script dangerouslySetInnerHTML={{ __html: revealBootScript }} />
         {children}
+        <RevealObserver />
         <ConsentBanner />
         <AttributionCapture />
         <TrackingScripts />
