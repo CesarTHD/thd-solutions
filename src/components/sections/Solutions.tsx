@@ -51,7 +51,7 @@ function SolutionCard({ item, featured }: { item: Solution; featured: boolean })
   const { id, icon: Icon, title, description, benefits, href } = item;
   return (
     <li
-      className={`group flex flex-col rounded-2xl border border-slate-200 bg-white transition-shadow duration-200 hover:shadow-lifted ${
+      className={`group flex flex-col rounded-2xl border border-slate-200 bg-white transition-[box-shadow,translate,border-color] duration-200 ease-out hover:-translate-y-1 hover:border-slate-300 hover:shadow-lifted ${
         featured ? "p-7 sm:p-8 lg:col-span-3" : "p-7 lg:col-span-2"
       }`}
     >
