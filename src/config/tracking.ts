@@ -15,7 +15,7 @@ function clean(value: string | undefined): string {
 }
 
 /** Contêiner do GTM da THD Solutions. NEXT_PUBLIC_GTM_ID, se definida, tem prioridade. */
-const DEFAULT_GTM_ID = "GTM-M468WZQJ";
+const DEFAULT_GTM_ID = "GTM-WJSKRNDB";
 
 export const trackingConfig = {
   gtmId: clean(process.env.NEXT_PUBLIC_GTM_ID) || DEFAULT_GTM_ID,
