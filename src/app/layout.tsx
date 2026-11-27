@@ -38,7 +38,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     // suppressHydrationWarning: o script abaixo marca <html data-motion> antes da hidratação.
     <html lang="pt-BR" className={`${geistSans.variable} ${geistMono.variable}`} suppressHydrationWarning>
-      <body className="flex min-h-dvh flex-col">
+      {/* suppressHydrationWarning: extensões (ex.: ColorZilla) injetam atributos no <body>. */}
+      <body className="flex min-h-dvh flex-col" suppressHydrationWarning>
         <script dangerouslySetInnerHTML={{ __html: revealBootScript }} />
         {children}
         <RevealObserver />
