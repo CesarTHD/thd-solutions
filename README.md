@@ -1,6 +1,13 @@
-# Landing Page: Integrações e Soluções Complementares para ERP
+# THD Solutions: site e landing pages
 
-Landing page para campanhas de Google Ads. Vende integrações, automações e funcionalidades complementares para ERPs que as empresas já usam. Todos os CTAs comerciais levam ao WhatsApp.
+Site institucional e páginas de destino para Google Ads. Vende integração de sistemas, desenvolvimento de software sob medida e automação de processos, com especialização em ERPs. Todos os CTAs comerciais levam ao WhatsApp.
+
+| Rota | Uso |
+|---|---|
+| `/` | Página institucional |
+| `/integracao-de-sistemas` | Destino dos anúncios de integração (sistemas, ERP, API) |
+| `/desenvolvimento-de-software` | Destino dos anúncios de desenvolvimento (software/sistemas sob medida) |
+| `/privacidade` | Política de privacidade |
 
 **Stack:** Next.js 16 (App Router, Cache Components), React 19, TypeScript, Tailwind CSS 4 e Lucide React. Não há backend nem banco de dados. Todas as rotas são pré-renderizadas como estáticas.
 
@@ -49,34 +56,44 @@ src/
     privacidade/          política de privacidade (modelo LGPD)
   config/
     site.ts               nome, contatos, navegação, SEO
+    pages.ts              rotas e page_type de cada página
+    project-media.ts      screenshots e vídeos reais dos projetos
     tracking.ts           IDs de rastreamento e modo (gtm | gtag | none)
   content/
-    landing.ts            todos os textos comerciais (dores, soluções, projetos, FAQ...)
+    landing.ts            textos da página inicial e blocos compartilhados
+    service-pages.ts      textos das páginas /integracao-de-sistemas e /desenvolvimento-de-software
+    types.ts              formato do conteúdo de cada seção
   components/
-    layout/               Header, Footer, Logo, botão flutuante do WhatsApp
-    sections/             uma seção da página por arquivo
-    forms/                formulário de qualificação
+    layout/               Header, Footer, Logo, WhatsApp flutuante, ServiceLandingPage (modelo das LPs)
+    sections/             uma seção da página por arquivo (recebem o conteúdo por props)
+    projects/             galeria de screenshots com modal de ampliação
+    forms/                formulário de diagnóstico
     cta/                  WhatsAppCta (link + evento)
     mockups/              mockups ilustrativos dos projetos
     analytics/            scripts de tags, banner de consentimento, captura de UTMs
     ui/                   Container, SectionHeading, Accordion, ícones
   lib/
     whatsapp.ts           construção de URLs e mensagens por origem
-    lead-validation.ts    validação e máscara do formulário
+    lead-validation.ts    validação do formulário
+    seo.ts                metadata por página (canonical, Open Graph, Twitter)
     tracking/             consentimento, atribuição e eventos
 ```
 
 ## Personalização
 
-- **Textos**: [src/content/landing.ts](src/content/landing.ts).
-- **Mensagens do WhatsApp por origem**: `whatsappMessages` em [src/lib/whatsapp.ts](src/lib/whatsapp.ts).
+- **Textos**: página inicial em [src/content/landing.ts](src/content/landing.ts); páginas de anúncio em [src/content/service-pages.ts](src/content/service-pages.ts).
+- **Mensagens do WhatsApp**: CTAs globais em `whatsappMessages` ([src/lib/whatsapp.ts](src/lib/whatsapp.ts)); hero e portfólio de cada página no próprio conteúdo (`whatsappMessage`).
+- **Nova página de anúncio**: crie um objeto `ServicePageContent` em `service-pages.ts`, uma rota em `src/app/<slug>/page.tsx` usando `ServiceLandingPage`, e registre a rota em `src/config/pages.ts` e em `src/app/sitemap.ts`.
 - **Cores**: tokens `navy`, `electric` e `whatsapp` em [src/app/globals.css](src/app/globals.css).
-- **Logotipo**: [src/components/layout/Logo.tsx](src/components/layout/Logo.tsx) e [src/app/icon.svg](src/app/icon.svg).
-- **Screenshots reais dos projetos**: coloque as imagens em `public/projetos/` e preencha o campo `image` do projeto em `landing.ts`. Exemplo:
+- **Logotipo**: arquivos em [public/brand/](public/brand/), componente [src/components/layout/Logo.tsx](src/components/layout/Logo.tsx), favicon em [src/app/icon.png](src/app/icon.png).
+- **Screenshots e vídeos reais dos projetos**: coloque os arquivos em `public/projects/cashback/`, `public/projects/dashboard/` ou `public/projects/automation/` e registre-os em [src/config/project-media.ts](src/config/project-media.ts) (com largura e altura reais). Exemplo:
   ```ts
-  image: { src: "/projetos/fidelizacao.png", alt: "Tela de segmentação de clientes", width: 1600, height: 1000 }
+  cashback: {
+    screenshots: [{ src: "/projects/cashback/clientes.png", alt: "Tela de segmentação de clientes", width: 1600, height: 1000 }],
+    video: { src: "/projects/cashback/demo.mp4", poster: "/projects/cashback/demo-poster.jpg", title: "Demonstração do cashback" },
+  },
   ```
-  Enquanto o campo estiver vazio, a página exibe um mockup marcado como "Interface ilustrativa".
+  Com screenshots, as imagens podem ser ampliadas em um modal. Enquanto a lista estiver vazia, a página exibe a demonstração ilustrativa, identificada como tal. Use só telas reais e oculte dados de clientes.
 - **Política de privacidade**: [src/app/privacidade/page.tsx](src/app/privacidade/page.tsx) é um modelo. Revise com a assessoria jurídica.
 
 ## Deploy na Railway
@@ -96,3 +113,4 @@ src/
 - [ ] `lead_form_submit` como conversão principal e cliques como secundárias no Google Ads
 - [ ] Política de privacidade revisada
 - [ ] Screenshots reais dos projetos (opcional)
+- [ ] Grupos de anúncio apontando para `/integracao-de-sistemas` e `/desenvolvimento-de-software`
