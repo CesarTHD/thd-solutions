@@ -41,7 +41,15 @@ try {
 } catch (e) {}
 ${
   trackingMode === "gtm"
-    ? `(function(w,d,s,l,i){w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s);j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer',${JSON.stringify(gtmId)});`
+    ? `(function(w,d,s,l,i){w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s);j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer',${JSON.stringify(gtmId)});
+${
+  // Tag do Google Ads ao lado do GTM: necessária para as conversões enviadas pelo site.
+  adsId
+    ? `(function(){var j=document.createElement('script');j.async=true;j.src='https://www.googletagmanager.com/gtag/js?id='+${JSON.stringify(adsId)};document.head.appendChild(j);})();
+gtag('js', new Date());
+gtag('config', ${JSON.stringify(adsId)});`
+    : ""
+}`
     : `(function(){var j=document.createElement('script');j.async=true;j.src='https://www.googletagmanager.com/gtag/js?id='+${JSON.stringify(gtagLoaderId)};document.head.appendChild(j);})();
 gtag('js', new Date());
 ${ga4Id ? `gtag('config', ${JSON.stringify(ga4Id)});` : ""}

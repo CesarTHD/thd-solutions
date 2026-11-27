@@ -21,6 +21,17 @@ Este documento explica como o site mede as interações e como configurar as con
 
 > **Atenção:** no modo GTM, não instale também a tag do Google (gtag.js) diretamente no site nem no Google Ads, e não crie duas tags de conversão para o mesmo evento. É a causa mais comum de conversões duplicadas.
 
+## Conversão "Contato" do Google Ads (ativa no código)
+
+O site envia diretamente ao Google Ads a conversão **Contato** (`AW-18596529457/MtqoCNzdosAdELGKwqNF`, valor 1 BRL) em todo clique que leva ao WhatsApp:
+
+- `whatsapp_click` (header, hero, portfólio, CTA final, botão flutuante, footer), `solution_click` e `partnership_click`;
+- `lead_form_submit` (o envio do formulário abre o WhatsApp). Se `NEXT_PUBLIC_GOOGLE_ADS_LEAD_LABEL` for definido, o formulário passa a usar essa outra conversão.
+
+Para isso, a tag do Google Ads (`gtag/js?id=AW-18596529457`) é carregada ao lado do GTM, respeitando o Consent Mode. Os valores padrão ficam em `src/config/tracking.ts` e podem ser trocados por `NEXT_PUBLIC_GOOGLE_ADS_ID` e `NEXT_PUBLIC_GOOGLE_ADS_WHATSAPP_LABEL`.
+
+> **Não crie no GTM uma tag de conversão do Google Ads para esses eventos.** A conversão já sai do site, e uma tag no GTM contaria cada clique duas vezes. No GTM, configure só o GA4 (e, se quiser, a conversão do formulário com outro rótulo, deixando `NEXT_PUBLIC_GOOGLE_ADS_LEAD_LABEL` vazio).
+
 ## 2. Páginas
 
 | Rota | `page_type` |
@@ -101,10 +112,7 @@ O gclid/gbraid/wbraid fica guardado na sessão do navegador. Com consentimento d
 | Tag do Google (GA4) | Tag do Google, ID `G-XXXX` | Initialization – All Pages |
 | GA4 - eventos | Evento do GA4, nome `{{Event}}`, parâmetros da seção 5.1 | Os três acionadores acima |
 | Vinculador de conversões | Conversion Linker | All Pages |
-| Ads - Lead formulário | Acompanhamento de conversões do Google Ads (ID e rótulo da ação "Lead formulário") | CE - lead_form_submit |
-| Ads - Clique WhatsApp | Acompanhamento de conversões do Google Ads (ID e rótulo da ação "Clique WhatsApp") | CE - cliques WhatsApp |
-
-Não crie tag de conversão do Ads para `project_view`.
+A conversão "Contato" do Google Ads já é enviada pelo site (ver seção acima). Não crie tags de conversão do Ads no GTM para `whatsapp_click`, `solution_click`, `partnership_click`, `lead_form_submit` ou `project_view`.
 
 ### 5.4 Consentimento e publicação
 

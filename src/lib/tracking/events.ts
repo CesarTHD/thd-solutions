@@ -102,17 +102,29 @@ export function trackEvent(name: TrackEventName, params: TrackEventParams): void
   // Modo GTM (ou sem rastreamento configurado): evento puro no dataLayer.
   window.dataLayer.push(Object.fromEntries(RESETTABLE_KEYS.map((k) => [k, undefined])));
   window.dataLayer.push({ event: name, ...payload });
+  sendAdsConversion(name);
 }
 
-/** Modo direto: conversões do Google Ads. Visualizações nunca são conversões. */
+/**
+ * Conversões do Google Ads, enviadas em qualquer modo (GTM ou direto).
+ * - Cliques que levam ao WhatsApp → conversão "Contato".
+ * - Envio do formulário (também abre o WhatsApp) → conversão própria, se houver
+ *   rótulo; senão, "Contato".
+ * - Visualizações nunca são conversões.
+ * Uma interação gera no máximo uma conversão (o formulário não dispara whatsapp_click).
+ */
 function sendAdsConversion(name: TrackEventName): void {
-  const { adsId, adsLeadLabel, adsWhatsAppLabel } = trackingConfig;
+  const { adsId, adsLeadLabel, adsWhatsAppLabel, adsConversionValue, adsCurrency } = trackingConfig;
   if (!adsId || typeof window.gtag !== "function") return;
   let label = "";
-  if (name === "lead_form_submit") label = adsLeadLabel;
+  if (name === "lead_form_submit") label = adsLeadLabel || adsWhatsAppLabel;
   else if (name === "whatsapp_click" || name === "solution_click" || name === "partnership_click") {
     label = adsWhatsAppLabel;
   }
   if (!label) return;
-  window.gtag("event", "conversion", { send_to: `${adsId}/${label}` });
+  window.gtag("event", "conversion", {
+    send_to: `${adsId}/${label}`,
+    value: adsConversionValue,
+    currency: adsCurrency,
+  });
 }
