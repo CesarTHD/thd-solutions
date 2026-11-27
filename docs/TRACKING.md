@@ -15,7 +15,7 @@ Este documento explica como o site mede as interações e como configurar as con
 
 ### Modos
 
-- **GTM (recomendado)**: defina só `NEXT_PUBLIC_GTM_ID`. Os eventos vão para o `dataLayer` e você configura GA4 e Google Ads dentro do GTM.
+- **GTM (recomendado, ativo)**: o contêiner `GTM-M468WZQJ` é o padrão em `src/config/tracking.ts`; `NEXT_PUBLIC_GTM_ID` o substitui, se definida. Os eventos vão para o `dataLayer` e você configura GA4 e Google Ads dentro do GTM.
 - **Direto**: sem GTM, defina `NEXT_PUBLIC_GA4_ID` e/ou `NEXT_PUBLIC_GOOGLE_ADS_ID`. O gtag.js envia os eventos e, se houver rótulos configurados, as conversões do Ads.
 - Com o GTM definido, o modo direto é ignorado. Isso evita carregar as tags duas vezes e contar cada hit em dobro.
 

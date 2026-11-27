@@ -14,8 +14,11 @@ function clean(value: string | undefined): string {
   return (value ?? "").trim();
 }
 
+/** Contêiner do GTM da THD Solutions. NEXT_PUBLIC_GTM_ID, se definida, tem prioridade. */
+const DEFAULT_GTM_ID = "GTM-M468WZQJ";
+
 export const trackingConfig = {
-  gtmId: clean(process.env.NEXT_PUBLIC_GTM_ID),
+  gtmId: clean(process.env.NEXT_PUBLIC_GTM_ID) || DEFAULT_GTM_ID,
   ga4Id: clean(process.env.NEXT_PUBLIC_GA4_ID),
   adsId: clean(process.env.NEXT_PUBLIC_GOOGLE_ADS_ID),
   /** Rótulo de conversão do Ads para envio do formulário (modo direto). */
