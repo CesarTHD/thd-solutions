@@ -1,42 +1,47 @@
 import { ArrowRight, Check } from "lucide-react";
-import { hero } from "@/content/landing";
+import type { HeroContent } from "@/content/types";
 import { WhatsAppCta } from "@/components/cta/WhatsAppCta";
 import { Container } from "@/components/ui/Container";
 import { EcosystemVisual } from "./EcosystemVisual";
 
-export function Hero() {
+export function Hero({ content }: { content: HeroContent }) {
   return (
     <section aria-labelledby="hero-title" className="relative overflow-hidden bg-paper">
       <div
         aria-hidden="true"
         className="grid-bg absolute inset-0 [mask-image:linear-gradient(to_bottom,black,transparent_75%)]"
       />
-      <Container className="relative grid items-center gap-14 pt-14 pb-20 sm:pt-20 lg:grid-cols-[1.05fr_1fr] lg:gap-12 lg:pt-24 lg:pb-28">
+      <Container className="relative grid items-center gap-14 pt-9 pb-20 sm:pt-20 lg:grid-cols-[1.05fr_1fr] lg:gap-12 lg:pt-24 lg:pb-28">
         <div>
-          <p className="eyebrow inline-flex items-center gap-2">
-            <span className="h-px w-6 bg-electric-600" aria-hidden="true" />
-            {hero.eyebrow}
+          <p className="eyebrow flex items-start gap-2 leading-relaxed">
+            <span className="mt-[0.6em] h-px w-6 shrink-0 bg-electric-600" aria-hidden="true" />
+            {content.eyebrow}
           </p>
           <h1
             id="hero-title"
-            className="mt-5 text-[2.35rem] leading-[1.08] font-semibold tracking-tight sm:text-5xl lg:text-[3.4rem]"
+            className="mt-4 text-[2.15rem] leading-[1.1] font-semibold tracking-tight sm:mt-5 sm:text-5xl sm:leading-[1.08] lg:text-[3.3rem]"
           >
-            {hero.title} <span className="text-electric-600">{hero.titleHighlight}</span>
+            {content.title} <span className="text-electric-600">{content.titleHighlight}</span>
           </h1>
-          <p className="mt-6 max-w-xl text-lg leading-relaxed text-slate-600">{hero.subtitle}</p>
+          <p className="mt-5 max-w-xl text-base leading-relaxed text-slate-600 sm:mt-6 sm:text-lg">{content.subtitle}</p>
 
-          <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-            <WhatsAppCta origin="hero" section="hero" buttonId="hero_diagnostico" className="btn btn-primary btn-lg">
-              {hero.primaryCta}
+          <div className="mt-7 flex flex-col gap-3 sm:mt-9 sm:flex-row">
+            <WhatsAppCta
+              message={content.whatsappMessage}
+              location="hero"
+              buttonId="hero_diagnostico"
+              className="btn btn-primary btn-lg"
+            >
+              {content.primaryCta}
               <ArrowRight className="size-4" aria-hidden="true" />
             </WhatsAppCta>
             <a href="#solucoes" className="btn btn-outline btn-lg">
-              {hero.secondaryCta}
+              {content.secondaryCta}
             </a>
           </div>
 
           <ul className="mt-8 flex flex-col gap-2.5 text-sm text-slate-600 sm:flex-row sm:flex-wrap sm:gap-x-6">
-            {hero.assurances.map((item) => (
+            {content.assurances.map((item) => (
               <li key={item} className="flex items-center gap-2">
                 <Check className="size-4 text-electric-600" aria-hidden="true" />
                 {item}

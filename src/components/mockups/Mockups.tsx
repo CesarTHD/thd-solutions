@@ -1,11 +1,11 @@
 /**
  * Mockups ilustrativos de interfaces (HTML/CSS puro).
  * Usam blocos neutros no lugar de valores para não sugerir métricas reais.
- * Substitua por screenshots reais via campo `image` em src/content/landing.ts.
+ * Para exibir screenshots reais, registre-os em src/config/project-media.ts.
  */
 import { BarChart3, Database, Gift, LayoutDashboard, MessageCircle, Settings, Users, Workflow } from "lucide-react";
 import type { ReactNode } from "react";
-import type { ProjectMockup } from "@/content/landing";
+import type { ProjectMockup } from "@/content/types";
 
 function Bar({ w, className = "bg-slate-200" }: { w: string; className?: string }) {
   return <span className={`block h-2 rounded-full ${className}`} style={{ width: w }} />;

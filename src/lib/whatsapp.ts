@@ -1,46 +1,29 @@
 import { siteConfig } from "@/config/site";
 
 /**
- * Origem do CTA. Cada origem possui uma mensagem inicial própria,
+ * Origem dos CTAs globais. Cada origem tem uma mensagem inicial própria,
  * para que o time comercial saiba de onde o contato veio.
+ * CTAs específicos de uma página (hero, soluções, portfólio) passam a
+ * mensagem diretamente pelo conteúdo, via prop `message` do WhatsAppCta.
  */
-export type WhatsAppOrigin =
-  | "header"
-  | "hero"
-  | "floating"
-  | "final_cta"
-  | "footer"
-  | "partnership"
-  | "solution_integracoes"
-  | "solution_automacao"
-  | "solution_whatsapp"
-  | "solution_cashback"
-  | "solution_dashboards"
-  | "solution_ia";
+export type WhatsAppOrigin = "header" | "hero" | "floating" | "final_cta" | "footer" | "partnership" | "projects";
 
-const DEFAULT_MESSAGE =
-  "Olá! Gostaria de informações sobre uma integração com o ERP da minha empresa.";
+const DEFAULT_MESSAGE = `Olá! Vim pelo site da ${siteConfig.name} e gostaria de conversar sobre um projeto.`;
 
 export const whatsappMessages: Record<WhatsAppOrigin, string> = {
-  header: "Olá! Gostaria de falar com um especialista sobre o ERP da minha empresa.",
-  hero: "Olá! Gostaria de solicitar um diagnóstico gratuito para o ERP da minha empresa.",
+  header: `Olá! Vim pelo site da ${siteConfig.name} e gostaria de solicitar um diagnóstico gratuito.`,
+  hero: `Olá! Vim pelo site da ${siteConfig.name} e gostaria de solicitar um diagnóstico gratuito.`,
   floating: DEFAULT_MESSAGE,
-  final_cta: "Olá! Gostaria de conversar com um especialista sobre uma necessidade no ERP da minha empresa.",
+  final_cta: `Olá! Vim pelo site da ${siteConfig.name} e gostaria de conversar com um especialista.`,
   footer: DEFAULT_MESSAGE,
-  partnership:
-    "Olá! Tenho uma empresa de sistemas ERP e gostaria de conversar sobre uma parceria tecnológica.",
-  solution_integracoes:
-    "Olá! Gostaria de informações sobre integração do ERP da minha empresa com outros sistemas.",
-  solution_automacao:
-    "Olá! Gostaria de informações sobre automação de processos ligados ao ERP da minha empresa.",
-  solution_whatsapp: "Olá! Gostaria de informações sobre integrar o WhatsApp ao ERP da minha empresa.",
-  solution_cashback:
-    "Olá! Gostaria de informações sobre cashback e fidelização usando os dados do meu ERP.",
-  solution_dashboards:
-    "Olá! Gostaria de informações sobre dashboards e indicadores com os dados do meu ERP.",
-  solution_ia:
-    "Olá! Gostaria de informações sobre inteligência artificial aplicada aos dados do meu ERP.",
+  partnership: `Olá! Vim pelo site da ${siteConfig.name}. Tenho uma empresa de sistemas ERP e gostaria de conversar sobre uma parceria tecnológica.`,
+  projects: `Olá! Vim pelo site da ${siteConfig.name} e gostaria de avaliar uma integração ou automação para minha empresa.`,
 };
+
+/** Mensagem padrão para um CTA de solução específica. */
+export function solutionMessage(title: string): string {
+  return `Olá! Vim pelo site da ${siteConfig.name} e gostaria de informações sobre ${title.charAt(0).toLowerCase()}${title.slice(1)}.`;
+}
 
 /**
  * Monta a URL do WhatsApp (wa.me) com a mensagem codificada corretamente.
@@ -62,27 +45,19 @@ export function withReference(message: string, reference: string | null): string
 
 export interface LeadFormData {
   name: string;
-  company: string;
-  whatsapp: string;
-  erp: string;
-  solutionLabel: string;
-  description?: string;
+  system?: string;
+  need: string;
 }
 
-/** Mensagem estruturada enviada a partir do formulário de qualificação. */
+/** Mensagem estruturada enviada a partir do formulário de diagnóstico. */
 export function buildLeadMessage(data: LeadFormData): string {
   const lines = [
-    "Olá! Gostaria de solicitar um diagnóstico gratuito.",
+    `Olá! Vim pelo site da ${siteConfig.name} e gostaria de solicitar um diagnóstico.`,
     "",
-    `*Nome:* ${data.name}`,
-    `*Empresa:* ${data.company}`,
-    `*WhatsApp:* ${data.whatsapp}`,
-    `*ERP utilizado:* ${data.erp}`,
-    `*Solução procurada:* ${data.solutionLabel}`,
+    `*Nome:* ${data.name.trim()}`,
   ];
-  const description = data.description?.trim();
-  if (description) {
-    lines.push("", "*Descrição da necessidade:*", description);
-  }
+  const system = data.system?.trim();
+  if (system) lines.push("", `*Sistema utilizado:* ${system}`);
+  lines.push("", `*Necessidade:* ${data.need.trim()}`);
   return lines.join("\n");
 }

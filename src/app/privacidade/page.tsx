@@ -1,15 +1,16 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { siteConfig } from "@/config/site";
+import { buildPageMetadata } from "@/lib/seo";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
 import { Container } from "@/components/ui/Container";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: "Política de Privacidade",
-  description: `Como ${siteConfig.name} trata dados pessoais e cookies nesta página.`,
-  alternates: { canonical: "/privacidade" },
-};
+  description: `Como a ${siteConfig.name} trata dados pessoais e cookies neste site.`,
+  path: "/privacidade",
+});
 
 /**
  * Modelo de política de privacidade alinhado à LGPD (Lei 13.709/2018).
@@ -19,7 +20,7 @@ export default function PrivacyPage() {
   const { name, contact } = siteConfig;
   return (
     <>
-      <Header />
+      <Header anchorsOnPage={false} />
       <main id="conteudo" className="flex-1 bg-white">
         <Container className="max-w-3xl py-16 sm:py-20">
           <p className="eyebrow">Transparência</p>
@@ -36,8 +37,8 @@ export default function PrivacyPage() {
             <section>
               <h2>2. Formulário e WhatsApp</h2>
               <p>
-                As informações preenchidas no formulário (nome, empresa, WhatsApp, ERP utilizado e descrição) não são
-                enviadas nem armazenadas por esta página. Elas são usadas somente para montar uma mensagem que é
+                As informações preenchidas no formulário (nome, sistema utilizado e descrição da necessidade) não são
+                enviadas nem armazenadas por este site. Elas são usadas somente para montar uma mensagem que é
                 aberta no WhatsApp do seu próprio dispositivo. O envio só acontece se você confirmar a mensagem no
                 aplicativo. A partir daí, a conversa segue as políticas do WhatsApp e é tratada por nossa equipe
                 comercial exclusivamente para responder à sua solicitação.
@@ -54,7 +55,7 @@ export default function PrivacyPage() {
                 </li>
                 <li>
                   <strong className="text-navy-900">Publicidade</strong>: Google Ads e Google Tag Manager, para medir o
-                  desempenho de campanhas e a origem das visitas (parâmetros como utm_source e gclid).
+                  desempenho de campanhas e a origem das visitas (parâmetros como utm_source, gclid, gbraid e wbraid).
                 </li>
               </ul>
               <p className="mt-3">

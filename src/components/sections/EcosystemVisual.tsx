@@ -22,12 +22,14 @@ const NODES: Node[] = [
 /**
  * Representação do ERP como centro de um ecossistema conectado.
  * Construída com HTML/SVG; puramente ilustrativa (aria-hidden + descrição textual).
+ * A animação do fluxo roda só em telas grandes: no mobile, ela repintava o SVG
+ * a cada frame e pesava na thread principal.
  */
 export function EcosystemVisual() {
   return (
     <figure className="relative mx-auto w-full max-w-[540px]">
       <figcaption className="sr-only">
-        Ilustração: o ERP da empresa ao centro, conectado a WhatsApp, CRM, dashboards, cashback,
+        Ilustração: o ERP da empresa ao centro, integrado a WhatsApp, CRM, dashboards, cashback,
         inteligência artificial e APIs de sistemas externos.
       </figcaption>
 
@@ -60,7 +62,7 @@ export function EcosystemVisual() {
                 strokeDasharray="3 21"
                 strokeLinecap="round"
                 vectorEffect="non-scaling-stroke"
-                className="animate-flow"
+                className="lg:animate-flow"
               />
             </g>
           ))}

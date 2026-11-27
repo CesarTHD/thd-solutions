@@ -14,28 +14,28 @@ const siteUrl = clean(process.env.NEXT_PUBLIC_SITE_URL) || "http://localhost:300
 
 export const siteConfig = {
   /** Nome exibido no header, footer, metadata e mensagens. */
-  name: clean(process.env.NEXT_PUBLIC_COMPANY_NAME) || "Integra ERP",
+  name: clean(process.env.NEXT_PUBLIC_COMPANY_NAME) || "THD Solutions",
   /** Descrição curta usada no footer. */
   shortDescription:
-    "Integrações, automações e funcionalidades complementares para os sistemas de gestão que sua empresa já utiliza.",
+    "Integração de sistemas, desenvolvimento de software sob medida e automação de processos para empresas. Especialistas em soluções complementares para ERPs.",
   url: siteUrl.replace(/\/+$/, ""),
   locale: "pt_BR",
 
   seo: {
-    title: "Integrações ERP e Automação de Processos Empresariais",
+    /** Título da página inicial (o nome da empresa é prefixado automaticamente). */
+    title: "Integração de Sistemas e Desenvolvimento de Software",
     description:
-      "Desenvolvimento de integrações personalizadas para ERP, automação de processos, WhatsApp, cashback, dashboards e inteligência artificial.",
+      "Desenvolvimento de software sob medida, integrações ERP, APIs e automação de processos empresariais. Solicite um diagnóstico gratuito.",
     keywords: [
-      "integração ERP",
-      "automação de processos",
-      "integração WhatsApp ERP",
-      "Firebird",
-      "PostgreSQL",
-      "SQL Server",
-      "n8n",
-      "dashboards",
-      "cashback",
-      "inteligência artificial",
+      "empresa de desenvolvimento de software",
+      "integração de sistemas",
+      "empresa de desenvolvimento de sistemas",
+      "desenvolvimento de software sob medida",
+      "integração de API",
+      "desenvolvimento de API",
+      "automação de processos empresariais",
+      "integração de software",
+      "integração com ERP",
     ],
   },
 
@@ -47,11 +47,19 @@ export const siteConfig = {
     email: clean(process.env.NEXT_PUBLIC_CONTACT_EMAIL),
   },
 
+  /** Âncoras presentes na página inicial e nas páginas de serviço. */
   nav: [
     { label: "Soluções", href: "#solucoes" },
-    { label: "Como funciona", href: "#como-funciona" },
     { label: "Projetos", href: "#projetos" },
+    { label: "Como funciona", href: "#como-funciona" },
     { label: "Perguntas frequentes", href: "#faq" },
+  ],
+
+  /** Páginas de serviço (links internos no rodapé). */
+  services: [
+    { label: "Integração de sistemas", href: "/integracao-de-sistemas" },
+    { label: "Desenvolvimento de software", href: "/desenvolvimento-de-software" },
+    { label: "Parcerias para fornecedores de ERP", href: "/#parcerias" },
   ],
 } as const;
 

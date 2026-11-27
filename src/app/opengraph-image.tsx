@@ -30,14 +30,14 @@ export default function OpengraphImage() {
         <img src={logoSrc} alt={siteConfig.name} width={271} height={60} />
         <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
           <div style={{ fontSize: 22, letterSpacing: 4, color: "#93b4ff", textTransform: "uppercase" }}>
-            Integrações e automações empresariais
+            Desenvolvimento de software e integrações
           </div>
           <div style={{ fontSize: 66, fontWeight: 700, lineHeight: 1.1, maxWidth: 980 }}>
-            Seu ERP não precisa ser substituído. Precisa evoluir.
+            Integramos seus sistemas. Automatizamos seus processos.
           </div>
         </div>
         <div style={{ fontSize: 24, color: "#c5d1e4" }}>
-          Integrações · Automação · WhatsApp · Dashboards · Inteligência artificial
+          Integração de sistemas · Software sob medida · APIs · Automação · ERP
         </div>
       </div>
     ),

@@ -1,8 +1,8 @@
-import { faq } from "@/content/landing";
+import type { FaqContent } from "@/content/types";
 import { Accordion } from "@/components/ui/Accordion";
 import { Container } from "@/components/ui/Container";
 
-export function Faq() {
+export function Faq({ content: faq }: { content: FaqContent }) {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -22,7 +22,7 @@ export function Faq() {
             {faq.title}
           </h2>
           <p className="mt-4 text-lg leading-relaxed text-slate-600">
-            Cada projeto passa por avaliação técnica antes de qualquer proposta.
+            {faq.subtitle}
           </p>
         </div>
         <Accordion items={faq.items.map((i) => ({ title: i.q, content: i.a }))} />

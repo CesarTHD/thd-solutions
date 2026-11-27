@@ -16,10 +16,23 @@ export async function Footer() {
 
   return (
     <footer className="border-t border-navy-800 bg-navy-950 text-navy-200">
-      <Container className="grid gap-10 py-14 md:grid-cols-[1.4fr_1fr_1fr]">
+      <Container className="grid gap-10 py-14 sm:grid-cols-2 lg:grid-cols-[1.3fr_1fr_1fr_1fr]">
         <div className="max-w-sm">
           <Logo tone="light" />
           <p className="mt-4 text-sm leading-relaxed text-navy-300">{siteConfig.shortDescription}</p>
+        </div>
+
+        <div>
+          <h2 className="text-sm font-semibold text-white">Serviços</h2>
+          <ul className="mt-4 space-y-2.5 text-sm">
+            {siteConfig.services.map((item) => (
+              <li key={item.href}>
+                <Link href={item.href} className="text-navy-300 transition-colors hover:text-white">
+                  {item.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
         </div>
 
         <div>
@@ -41,7 +54,7 @@ export async function Footer() {
             <li>
               <WhatsAppCta
                 origin="footer"
-                section="footer"
+                location="footer"
                 buttonId="footer_whatsapp"
                 className="text-navy-300 transition-colors hover:text-white"
               >

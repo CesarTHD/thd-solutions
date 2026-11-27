@@ -1,9 +1,9 @@
-import { finalCta } from "@/content/landing";
+import type { FinalCtaContent } from "@/content/types";
 import { WhatsAppCta } from "@/components/cta/WhatsAppCta";
 import { Container } from "@/components/ui/Container";
 import { WhatsAppIcon } from "@/components/ui/WhatsAppIcon";
 
-export function FinalCta() {
+export function FinalCta({ content: finalCta }: { content: FinalCtaContent }) {
   return (
     <section aria-labelledby="cta-final-title" className="bg-white pb-20 sm:pb-24">
       <Container>
@@ -18,7 +18,7 @@ export function FinalCta() {
             </h2>
             <p className="mt-4 text-lg leading-relaxed text-electric-100">{finalCta.subtitle}</p>
             <div className="mt-9 flex justify-center">
-              <WhatsAppCta origin="final_cta" section="cta_final" buttonId="cta_final_especialista" className="btn btn-whatsapp btn-lg">
+              <WhatsAppCta origin="final_cta" location="cta_final" buttonId="cta_final_especialista" className="btn btn-whatsapp btn-lg">
                 <WhatsAppIcon className="size-5" />
                 {finalCta.cta}
               </WhatsAppCta>

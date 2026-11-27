@@ -21,10 +21,10 @@ export function SoftwareHouses() {
             <WhatsAppCta
               origin="partnership"
               event="partnership_click"
-              section="software_houses"
+              location="parcerias"
               buttonId="parceria_conversar"
               leadType="software_house"
-              className="btn btn-lg bg-white text-navy-900 hover:bg-navy-50"
+              className="btn btn-lg whitespace-normal bg-white text-center text-navy-900 hover:bg-navy-50"
             >
               {softwareHouses.cta}
               <ArrowRight className="size-4" aria-hidden="true" />

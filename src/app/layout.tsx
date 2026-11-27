@@ -7,31 +7,21 @@ import { TrackingScripts } from "@/components/analytics/TrackingScripts";
 import "./globals.css";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"], display: "swap" });
-const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"], display: "swap" });
+// Fonte mono só aparece abaixo da dobra (selos de tecnologia e mockups): sem preload,
+// para não disputar banda com o conteúdo inicial no mobile.
+const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"], display: "swap", preload: false });
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
-    default: siteConfig.seo.title,
+    default: `${siteConfig.name} | ${siteConfig.seo.title}`,
     template: `%s | ${siteConfig.name}`,
   },
   description: siteConfig.seo.description,
   keywords: [...siteConfig.seo.keywords],
   applicationName: siteConfig.name,
-  alternates: { canonical: "/" },
-  openGraph: {
-    type: "website",
-    locale: siteConfig.locale,
-    url: "/",
-    siteName: siteConfig.name,
-    title: siteConfig.seo.title,
-    description: siteConfig.seo.description,
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: siteConfig.seo.title,
-    description: siteConfig.seo.description,
-  },
+  // Canonical, Open Graph e Twitter são definidos por página (src/lib/seo.ts),
+  // pois o Next substitui esses objetos em vez de mesclá-los.
   robots: { index: true, follow: true },
   formatDetection: { telephone: false },
 };

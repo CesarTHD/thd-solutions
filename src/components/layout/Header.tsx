@@ -7,8 +7,13 @@ import { WhatsAppCta } from "@/components/cta/WhatsAppCta";
 import { Container } from "@/components/ui/Container";
 import { Logo } from "./Logo";
 
-export function Header() {
+/**
+ * @param anchorsOnPage  true quando a página contém as seções do menu (início e páginas de serviço).
+ *                       Nas demais, os links apontam para as seções da página inicial.
+ */
+export function Header({ anchorsOnPage = true }: { anchorsOnPage?: boolean }) {
   const [open, setOpen] = useState(false);
+  const nav = siteConfig.nav.map((item) => ({ ...item, href: anchorsOnPage ? item.href : `/${item.href}` }));
 
   useEffect(() => {
     if (!open) return;
@@ -37,7 +42,7 @@ export function Header() {
 
         <nav aria-label="Principal" className="hidden lg:block">
           <ul className="flex items-center gap-1">
-            {siteConfig.nav.map((item) => (
+            {nav.map((item) => (
               <li key={item.href}>
                 <a
                   href={item.href}
@@ -51,8 +56,8 @@ export function Header() {
         </nav>
 
         <div className="hidden lg:block">
-          <WhatsAppCta origin="header" section="header" buttonId="header_especialista" className="btn btn-navy btn-sm">
-            Fale com um especialista
+          <WhatsAppCta origin="header" location="header" buttonId="header_diagnostico" className="btn btn-navy btn-sm">
+            Solicitar diagnóstico gratuito
           </WhatsAppCta>
         </div>
 
@@ -73,7 +78,7 @@ export function Header() {
           <Container className="flex h-[calc(100dvh-4rem)] flex-col py-4">
             <nav aria-label="Menu mobile">
               <ul className="divide-y divide-slate-100">
-                {siteConfig.nav.map((item) => (
+                {nav.map((item) => (
                   <li key={item.href}>
                     <a
                       href={item.href}
@@ -89,11 +94,11 @@ export function Header() {
             <div className="mt-6">
               <WhatsAppCta
                 origin="header"
-                section="header_mobile"
-                buttonId="header_mobile_especialista"
+                location="header_mobile"
+                buttonId="header_mobile_diagnostico"
                 className="btn btn-navy w-full"
               >
-                Fale com um especialista
+                Solicitar diagnóstico gratuito
               </WhatsAppCta>
             </div>
           </Container>

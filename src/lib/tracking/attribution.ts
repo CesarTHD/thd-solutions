@@ -1,5 +1,6 @@
 /**
- * Captura e preservação de parâmetros de atribuição (UTMs e gclid).
+ * Captura e preservação de parâmetros de atribuição (UTMs e identificadores
+ * de clique do Google Ads: gclid, gbraid e wbraid).
  *
  * - Durante a visita: sessionStorage (escopo da aba, apagado ao fechar).
  * - Entre visitas (até 90 dias): localStorage, SOMENTE com consentimento
@@ -14,6 +15,8 @@ export const ATTRIBUTION_KEYS = [
   "utm_content",
   "utm_term",
   "gclid",
+  "gbraid",
+  "wbraid",
 ] as const;
 
 export type AttributionKey = (typeof ATTRIBUTION_KEYS)[number];
@@ -109,6 +112,6 @@ export function getAttribution(): Attribution {
 export function getAttributionReference(): string | null {
   const a = getAttribution();
   const parts = [a.utm_source, a.utm_medium, a.utm_campaign].filter(Boolean);
-  if (a.gclid && !a.utm_source) parts.unshift("google-ads");
+  if ((a.gclid || a.gbraid || a.wbraid) && !a.utm_source) parts.unshift("google-ads");
   return parts.length ? parts.join(" / ") : null;
 }
