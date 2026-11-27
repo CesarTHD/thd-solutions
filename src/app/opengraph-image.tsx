@@ -1,9 +1,14 @@
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
 import { ImageResponse } from "next/og";
 import { siteConfig } from "@/config/site";
 
 export const alt = siteConfig.seo.title;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
+
+const logo = await readFile(join(process.cwd(), "public/brand/logo-light.png"));
+const logoSrc = `data:image/png;base64,${logo.toString("base64")}`;
 
 export default function OpengraphImage() {
   return new ImageResponse(
@@ -21,10 +26,8 @@ export default function OpengraphImage() {
           fontFamily: "sans-serif",
         }}
       >
-        <div style={{ display: "flex", alignItems: "center", gap: 16, fontSize: 30, fontWeight: 600 }}>
-          <div style={{ width: 44, height: 44, borderRadius: 10, background: "#3866ff", display: "flex" }} />
-          {siteConfig.name}
-        </div>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={logoSrc} alt={siteConfig.name} width={271} height={60} />
         <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
           <div style={{ fontSize: 22, letterSpacing: 4, color: "#93b4ff", textTransform: "uppercase" }}>
             Integrações e automações empresariais
