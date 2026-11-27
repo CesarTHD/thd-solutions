@@ -13,7 +13,7 @@ export function HowItWorks({ content }: { content: ProcessContent }) {
           subtitle={content.subtitle}
         />
 
-        <ol className="relative mt-14 grid gap-10 md:grid-cols-2 lg:grid-cols-4 lg:gap-8">
+        <ol data-reveal="stagger" className="relative mt-14 grid gap-10 md:grid-cols-2 lg:grid-cols-4 lg:gap-8">
           <span
             aria-hidden="true"
             className="absolute top-5 right-[12.5%] left-[12.5%] hidden h-px bg-gradient-to-r from-electric-200 via-slate-200 to-electric-200 lg:block"

@@ -24,7 +24,7 @@ export function Projects({ content }: { content: ProjectsContent }) {
               params={{ button_location: "portfolio", button_id: `projeto_${p.id}`, solution_category: p.id }}
             >
               <article className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16" aria-labelledby={`projeto-${p.id}`}>
-                <div className={i % 2 === 1 ? "lg:order-2" : ""}>
+                <div data-reveal className={i % 2 === 1 ? "lg:order-2" : ""}>
                   <span className="inline-flex rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-xs font-medium text-navy-700">
                     {p.tag}
                   </span>
@@ -42,7 +42,7 @@ export function Projects({ content }: { content: ProjectsContent }) {
                   </ul>
                 </div>
 
-                <div className={`relative ${i % 2 === 1 ? "lg:order-1" : ""}`}>
+                <div data-reveal className={`relative [--reveal-delay:120ms] ${i % 2 === 1 ? "lg:order-1" : ""}`}>
                   <div className="absolute -inset-4 rounded-3xl bg-paper sm:-inset-6" aria-hidden="true" />
                   <div className="relative">
                     <ProjectMedia project={p} />
@@ -53,7 +53,7 @@ export function Projects({ content }: { content: ProjectsContent }) {
           ))}
         </div>
 
-        <div className="mt-20 flex flex-col gap-6 rounded-2xl border border-slate-200 bg-paper p-7 sm:p-9 lg:mt-28 lg:flex-row lg:items-center lg:justify-between">
+        <div data-reveal className="mt-20 flex flex-col gap-6 rounded-2xl border border-slate-200 bg-paper p-7 sm:p-9 lg:mt-28 lg:flex-row lg:items-center lg:justify-between">
           <div className="max-w-xl">
             <h3 className="text-xl font-semibold tracking-tight sm:text-2xl">{content.cta.title}</h3>
             <p className="mt-2 text-[0.9375rem] leading-relaxed text-slate-600">{content.cta.text}</p>

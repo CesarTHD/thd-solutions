@@ -16,7 +16,7 @@ export function Faq({ content: faq }: { content: FaqContent }) {
   return (
     <section id="faq" aria-labelledby="faq-title" className="section bg-white">
       <Container className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
-        <div>
+        <div data-reveal>
           <p className="eyebrow">Dúvidas</p>
           <h2 id="faq-title" className="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl">
             {faq.title}
@@ -25,7 +25,9 @@ export function Faq({ content: faq }: { content: FaqContent }) {
             {faq.subtitle}
           </p>
         </div>
-        <Accordion items={faq.items.map((i) => ({ title: i.q, content: i.a }))} />
+        <div data-reveal className="[--reveal-delay:100ms]">
+          <Accordion items={faq.items.map((i) => ({ title: i.q, content: i.a }))} />
+        </div>
       </Container>
       <script
         type="application/ld+json"

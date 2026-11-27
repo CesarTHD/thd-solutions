@@ -7,7 +7,7 @@ export function FinalCta({ content: finalCta }: { content: FinalCtaContent }) {
   return (
     <section aria-labelledby="cta-final-title" className="bg-white pb-20 sm:pb-24">
       <Container>
-        <div className="relative overflow-hidden rounded-3xl bg-electric-700 px-6 py-14 text-center sm:px-12 sm:py-20">
+        <div data-reveal className="relative overflow-hidden rounded-3xl bg-electric-700 px-6 py-14 text-center sm:px-12 sm:py-20">
           <div
             aria-hidden="true"
             className="absolute inset-0 [background-image:linear-gradient(to_right,rgba(255,255,255,0.07)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.07)_1px,transparent_1px)] [background-size:32px_32px] [mask-image:radial-gradient(ellipse_at_center,black_10%,transparent_70%)]"

@@ -13,7 +13,7 @@ export function Hero({ content }: { content: HeroContent }) {
       />
       <Container className="relative grid items-center gap-14 pt-9 pb-20 sm:pt-20 lg:grid-cols-[1.05fr_1fr] lg:gap-12 lg:pt-24 lg:pb-28">
         <div>
-          <p className="eyebrow flex items-start gap-2 leading-relaxed">
+          <p className="enter eyebrow flex items-start gap-2 leading-relaxed">
             <span className="mt-[0.6em] h-px w-6 shrink-0 bg-electric-600" aria-hidden="true" />
             {content.eyebrow}
           </p>
@@ -25,7 +25,7 @@ export function Hero({ content }: { content: HeroContent }) {
           </h1>
           <p className="mt-5 max-w-xl text-base leading-relaxed text-slate-600 sm:mt-6 sm:text-lg">{content.subtitle}</p>
 
-          <div className="mt-7 flex flex-col gap-3 sm:mt-9 sm:flex-row">
+          <div className="enter mt-7 flex flex-col gap-3 [--enter-delay:120ms] sm:mt-9 sm:flex-row">
             <WhatsAppCta
               message={content.whatsappMessage}
               location="hero"
@@ -40,7 +40,7 @@ export function Hero({ content }: { content: HeroContent }) {
             </a>
           </div>
 
-          <ul className="mt-8 flex flex-col gap-2.5 text-sm text-slate-600 sm:flex-row sm:flex-wrap sm:gap-x-6">
+          <ul className="enter mt-8 flex [--enter-delay:220ms] flex-col gap-2.5 text-sm text-slate-600 sm:flex-row sm:flex-wrap sm:gap-x-6">
             {content.assurances.map((item) => (
               <li key={item} className="flex items-center gap-2">
                 <Check className="size-4 text-electric-600" aria-hidden="true" />
@@ -50,7 +50,9 @@ export function Hero({ content }: { content: HeroContent }) {
           </ul>
         </div>
 
-        <EcosystemVisual />
+        <div className="enter [--enter-delay:160ms]">
+          <EcosystemVisual />
+        </div>
       </Container>
     </section>
   );

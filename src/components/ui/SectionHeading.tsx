@@ -21,7 +21,7 @@ export function SectionHeading({
 }: SectionHeadingProps) {
   const centered = align === "center";
   return (
-    <div className={`${centered ? "mx-auto text-center" : ""} max-w-2xl ${className}`}>
+    <div data-reveal className={`${centered ? "mx-auto text-center" : ""} max-w-2xl ${className}`}>
       {eyebrow ? (
         <p className={`eyebrow ${tone === "dark" ? "text-electric-300" : ""}`}>{eyebrow}</p>
       ) : null}

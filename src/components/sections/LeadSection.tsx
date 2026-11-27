@@ -7,7 +7,7 @@ export function LeadSection({ content }: { content: LeadContent }) {
   return (
     <section id="diagnostico" aria-labelledby="diagnostico-title" className="section bg-paper">
       <Container className="grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
-        <div className="lg:pt-4">
+        <div data-reveal className="lg:pt-4">
           <p className="eyebrow">Diagnóstico gratuito</p>
           <h2 id="diagnostico-title" className="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl sm:leading-[1.15]">
             {content.title}
@@ -29,7 +29,9 @@ export function LeadSection({ content }: { content: LeadContent }) {
           </div>
         </div>
 
-        <LeadForm category={content.category} needPlaceholder={content.needPlaceholder} />
+        <div data-reveal className="[--reveal-delay:120ms]">
+          <LeadForm category={content.category} needPlaceholder={content.needPlaceholder} />
+        </div>
       </Container>
     </section>
   );

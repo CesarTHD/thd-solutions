@@ -6,7 +6,7 @@ export function Technologies() {
   return (
     <section aria-labelledby="tecnologias-title" className="border-y border-slate-200 bg-paper py-16 sm:py-20">
       <Container className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-center lg:gap-16">
-        <div>
+        <div data-reveal>
           <h2 id="tecnologias-title" className="text-xl font-semibold tracking-tight sm:text-2xl">
             {technologies.title}
           </h2>
@@ -15,7 +15,7 @@ export function Technologies() {
             {technologies.note}
           </p>
         </div>
-        <ul className="flex flex-wrap gap-2.5" aria-label="Tecnologias utilizadas">
+        <ul data-reveal className="flex flex-wrap gap-2.5 [--reveal-delay:100ms]" aria-label="Tecnologias utilizadas">
           {technologies.items.map((t) => (
             <li
               key={t}

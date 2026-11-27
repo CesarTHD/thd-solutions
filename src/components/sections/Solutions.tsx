@@ -22,7 +22,7 @@ export function Solutions({ content }: { content: SolutionsContent }) {
       <Container>
         <SectionHeading id="solucoes-title" eyebrow={content.eyebrow} title={content.title} subtitle={content.subtitle} />
 
-        <ul className="mt-14 grid gap-5 md:grid-cols-2 lg:grid-cols-6">
+        <ul data-reveal="stagger" className="mt-14 grid gap-5 md:grid-cols-2 lg:grid-cols-6">
           {content.items.map((item, i) => (
             <SolutionCard key={item.id} item={item} featured={i < featuredCount} />
           ))}
